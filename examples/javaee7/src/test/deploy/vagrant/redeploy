@@ -1,0 +1,8 @@
+#/bin/sh
+GLASSFISH_USER=glassfish
+GLASSFISH_USER_HOME=~glassfish
+GLASSFISH_ROOT=$GLASSFISH_USER_HOME/glassfish4
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin undeploy javaee7addressbook-1.0-SNAPSHOT"
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin stop-domain"
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin start-domain"
+su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin deploy --force /app/target/javaee7addressbook-1.0-SNAPSHOT.war"

@@ -51,5 +51,4 @@ su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin deploy /
 curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/
 curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people -X POST -H 'Content-type:application/json' --upload-file /app/src/test/data/person1.json | python -m json.tool
 curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/list | python -m json.tool
-curl -s -X DELETE http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/1 | python -m json.tool
-curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/list | python -m json.tool
+#curl -s -X DELETE http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/1 | python -m json.tool

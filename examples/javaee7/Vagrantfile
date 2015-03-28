@@ -14,5 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/app"
 
   config.vm.provision "shell", path: "src/test/deploy/vagrant/setup"
+  config.vm.provision "shell", path: "src/test/deploy/vagrant/redeploy"
 
 end
