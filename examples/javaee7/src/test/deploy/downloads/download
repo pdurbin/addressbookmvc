@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -s -L -O http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip
