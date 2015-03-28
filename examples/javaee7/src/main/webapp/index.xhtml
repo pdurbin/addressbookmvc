@@ -7,6 +7,15 @@
     </h:head>
     <h:body>
         <h:outputText value="Java EE 7 AddressBookMVC Example"/>
+        <h:dataTable value="#{homePage.allPeople}" var="person">
+            <h:column>
+                <h:outputText value="#{person.id}"/>
+            </h:column>
+            <h:column>
+                <h:outputText value="#{person.displayName}"/>
+            </h:column>
+        </h:dataTable>
+        <br/>
     </h:body>
 </html>
 
