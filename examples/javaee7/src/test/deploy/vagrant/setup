@@ -2,7 +2,8 @@
 echo Deploying to Vagrant...
 
 echo Making sure dependecies are installed
-yum install -y -q java-1.7.0-openjdk-devel postgresql-server
+#yum install -y -q java-1.7.0-openjdk-devel postgresql-server
+yum install -y -q java-1.7.0-openjdk-devel
 
 echo Making sure Glassfish is set up...
 DOWNLOAD_DIR='/app/src/test/deploy/downloads'
@@ -27,26 +28,28 @@ else
 	echo "$GLASSFISH_ROOT already exists"
 fi
 
-echo Making sure PostgreSQL is running
-service postgresql start
-service postgresql initdb
-service postgresql status
+#echo Making sure PostgreSQL is running
+#service postgresql start
+#service postgresql initdb
+#service postgresql status
 
-DB_POOL_NAME=javaee7addressbookPool
-DB_NAME=javaee7addressbook
-DB_USER=javaee7addressbookapp
-DB_PASS=mypass
-DB_HOST=localhost
-DB_PORT=5432
-DB_JDBC_RESOURCE=javaee7addressbookPersistenceUnit
+#DB_POOL_NAME=javaee7addressbookPool
+#DB_NAME=javaee7addressbook
+#DB_USER=javaee7addressbookapp
+#DB_PASS=mypass
+#DB_HOST=localhost
+#DB_PORT=5432
+#DB_JDBC_RESOURCE=javaee7addressbookPersistenceUnit
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin $ASADMIN_OPTS delete-connector-connection-pool --cascade=true jms/__defaultConnectionFactory-Connection-Pool"
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin create-jdbc-connection-pool --restype javax.sql.DataSource --datasourceclassname org.postgresql.ds.PGPoolingDataSource --property create=true:User=$DB_USER:PortNumber=$DB_PORT:databaseName=$DB_NAME:password=$DB_PASS:ServerName=$DB_HOST $DB_POOL_NAME"
+#su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin $ASADMIN_OPTS create-jdbc-resource --connectionpoolid $DB_POOL_NAME jdbc/$DB_JDBC_RESOURCE"
+
 su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin start-domain"
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin $ASADMIN_OPTS delete-connector-connection-pool --cascade=true jms/__defaultConnectionFactory-Connection-Pool"
-
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin create-jdbc-connection-pool --restype javax.sql.DataSource --datasourceclassname org.postgresql.ds.PGPoolingDataSource --property create=true:User=$DB_USER:PortNumber=$DB_PORT:databaseName=$DB_NAME:password=$DB_PASS:ServerName=$DB_HOST $DB_POOL_NAME"
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin $ASADMIN_OPTS create-jdbc-resource --connectionpoolid $DB_POOL_NAME jdbc/$DB_JDBC_RESOURCE"
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin stop-domain"
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin start-domain"
-
+su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin start-database"
 su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin undeploy javaee7addressbook-1.0-SNAPSHOT"
 su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin deploy /app/target/javaee7addressbook-1.0-SNAPSHOT.war"
 curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/
+curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people -X POST -H 'Content-type:application/json' --upload-file /app/src/test/data/person1.json | python -m json.tool
+curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/list | python -m json.tool
+curl -s -X DELETE http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/1 | python -m json.tool
+curl -s http://localhost:8080/javaee7addressbook-1.0-SNAPSHOT/api/v1/people/list | python -m json.tool
