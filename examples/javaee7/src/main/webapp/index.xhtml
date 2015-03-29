@@ -7,15 +7,23 @@
     </h:head>
     <h:body>
         <h:outputText value="Java EE 7 AddressBookMVC Example"/>
-        <h:dataTable value="#{homePage.allPeople}" var="person">
-            <h:column>
-                <h:outputText value="#{person.id}"/>
-            </h:column>
-            <h:column>
-                <h:outputText value="#{person.displayName}"/>
-            </h:column>
-        </h:dataTable>
-        <br/>
+        <h:form>
+            <h:inputText value="#{homePage.displayNameToAdd}"/>
+            <h:commandButton id="save" value="Add" action="#{homePage.add}" />
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{homePage.allPeople}" var="person">
+                <h:column>
+                    <h:outputText value="#{person.id}"/>
+                </h:column>
+                <h:column>
+                    <h:outputText value="#{person.displayName}"/>
+                </h:column>
+                <h:column>
+                    <h:commandButton value="Delete" action="#{homePage.delete(person)}" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </h:body>
 </html>
 

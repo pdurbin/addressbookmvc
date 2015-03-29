@@ -15,7 +15,28 @@ public class HomePage implements Serializable {
     @EJB
     AddressBookServiceBean addressBookService;
 
+    String displayNameToAdd;
+
     public List<Person> getAllPeople() {
         return addressBookService.findAll();
     }
+
+    public void add() {
+        Person personToAdd = new Person();
+        personToAdd.setDisplayName(displayNameToAdd);
+        addressBookService.add(personToAdd);
+    }
+
+    public void delete(Person doomed) {
+        addressBookService.delete(doomed.getId());
+    }
+
+    public String getDisplayNameToAdd() {
+        return displayNameToAdd;
+    }
+
+    public void setDisplayNameToAdd(String displayNameToAdd) {
+        this.displayNameToAdd = displayNameToAdd;
+    }
+
 }
