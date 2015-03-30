@@ -31,21 +31,12 @@ public class People {
         JsonArrayBuilder peopleBuilder = Json.createArrayBuilder();
         List<Person> allPeople = addressBookService.findAll();
         for (Person person : allPeople) {
-            JsonObjectBuilder personAsJson = toJson(person);
+            JsonObjectBuilder personAsJson = ApiUtil.toJson(person);
             peopleBuilder.add(personAsJson);
         }
         JsonObjectBuilder response = Json.createObjectBuilder();
         response.add("people", peopleBuilder);
         return Response.ok().entity(Json.createObjectBuilder().add("message", response).build()).type(MediaType.APPLICATION_JSON).build();
-    }
-
-    private JsonObjectBuilder toJson(Person person) {
-        JsonObjectBuilder personAsJson = Json.createObjectBuilder();
-        long id = person.getId();
-        String displayName = person.getDisplayName();
-        personAsJson.add("id", id);
-        personAsJson.add("displayName", displayName);
-        return personAsJson;
     }
 
     @POST
@@ -60,7 +51,7 @@ public class People {
         Person toPersist = new Person();
         toPersist.setDisplayName(displayName);
         Person persistedPerson = addressBookService.add(toPersist);
-        return Response.ok().entity(Json.createObjectBuilder().add("message", "Added: " + persistedPerson.getId()).build()).type(MediaType.APPLICATION_JSON).build();
+        return Response.ok().entity(Json.createObjectBuilder().add("id", persistedPerson.getId()).build()).type(MediaType.APPLICATION_JSON).build();
     }
 
     @DELETE
