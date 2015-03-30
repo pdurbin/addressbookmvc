@@ -1,8 +1,14 @@
 #/bin/sh
+WAR=/app/target/javaee7addressbook-1.0-SNAPSHOT.war
+PATH=$PATH:/usr/local/apache-maven/apache-maven-3.3.1/bin
+if [ ! -f $WAR ]; then
+  echo "no war file found... building"
+  su $SUDO_USER -s /bin/sh -c "cd /app && mvn package"
+fi
 GLASSFISH_USER=glassfish
 GLASSFISH_USER_HOME=~glassfish
 GLASSFISH_ROOT=$GLASSFISH_USER_HOME/glassfish4
 #su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin undeploy javaee7addressbook-1.0-SNAPSHOT"
 #su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin stop-domain"
 #su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin start-domain"
-su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin deploy --force /app/target/javaee7addressbook-1.0-SNAPSHOT.war"
+su $GLASSFISH_USER -s /bin/sh -c "$GLASSFISH_ROOT/glassfish/bin/asadmin deploy --force $WAR"

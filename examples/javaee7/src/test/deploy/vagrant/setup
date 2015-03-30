@@ -5,16 +5,28 @@ echo Making sure dependecies are installed
 #yum install -y -q java-1.7.0-openjdk-devel postgresql-server
 yum install -y -q java-1.7.0-openjdk-devel
 
-echo Making sure Glassfish is set up...
+echo Making sure Glassfish and Maven have been downloaded...
 DOWNLOAD_DIR='/app/src/test/deploy/downloads'
 GLASSFISH_ZIP="$DOWNLOAD_DIR/glassfish-4.1.zip"
-if [ ! -f $GLASSFISH_ZIP ]; then
-    echo "Couldn't find $GLASSFISH_ZIP! Running download script...."
+MAVEN_VERSION=apache-maven-3.3.1
+MAVEN_ZIP="$DOWNLOAD_DIR/$MAVEN_VERSION-bin.zip"
+if [ ! -f $GLASSFISH_ZIP ] || [ ! -f $MAVEN_ZIP ]; then
+    echo "Couldn't find $GLASSFISH_ZIP or $MAVEN_ZIP! Running download script...."
     cd $DOWNLOAD_DIR && ./download && cd
     echo "Done running download script."
 else
-    echo "$GLASSFISH_ZIP has already been downloaded."
+    echo "$GLASSFISH_ZIP and $MAVEN_ZIP have already been downloaded."
 fi
+
+MAVEN_DIR=/usr/local/apache-maven
+if [ ! -d $MAVEN_DIR ]; then
+    mkdir $MAVEN_DIR
+    cp $MAVEN_ZIP $MAVEN_DIR
+    cd $MAVEN_DIR
+    unzip $MAVEN_ZIP
+    cd
+fi
+
 GLASSFISH_USER=glassfish
 echo "Ensuring Unix user '$GLASSFISH_USER' exists"
 useradd $GLASSFISH_USER || :
