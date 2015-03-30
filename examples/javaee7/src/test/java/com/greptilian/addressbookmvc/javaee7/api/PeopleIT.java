@@ -63,4 +63,37 @@ public class PeopleIT {
         logger.fine("added and deleted id " + id);
     }
 
+    @Test
+    public void addEditAndDelete() {
+        String displayNameKey = "displayName";
+        String initialDisplayName = "Michael Finnegan";
+        JsonObject personToAdd = Json.createObjectBuilder().
+                add(displayNameKey, initialDisplayName).build();
+        Response addResponse = given()
+                .body(personToAdd.toString()).contentType(ContentType.JSON)
+                .post("/people");
+        assertEquals(200, addResponse.getStatusCode());
+
+        JsonPath personAdded = JsonPath.from(addResponse.body().asString());
+        int id = personAdded.get("id");
+        String savedInitialDisplayName = personAdded.get(displayNameKey);
+        assertEquals(initialDisplayName, savedInitialDisplayName);
+
+        String updatedDisplayName = "Mike Finnegan";
+        JsonObject updatedInfo = Json.createObjectBuilder().
+                add(displayNameKey, updatedDisplayName).build();
+        Response editResponse = given()
+                .body(updatedInfo.toString()).contentType(ContentType.JSON)
+                .put("/people/" + id);
+        assertEquals(200, editResponse.getStatusCode());
+
+        JsonPath personUpdated = JsonPath.from(editResponse.body().asString());
+        String savedUpdatedDisplayName = personUpdated.get(displayNameKey);
+        assertEquals(updatedDisplayName, savedUpdatedDisplayName);
+
+        Response deleteResponse = given().delete("/people/" + id);
+        assertEquals(200, deleteResponse.getStatusCode());
+        logger.fine("added, edited, and deleted id " + id);
+    }
+
 }

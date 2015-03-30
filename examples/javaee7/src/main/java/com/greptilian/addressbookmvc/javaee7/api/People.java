@@ -11,6 +11,7 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -41,17 +42,35 @@ public class People {
 
     @POST
     public Response add(JsonObject body) {
-        String keyForDisplayName = "displayName";
         String displayName;
         try {
-            displayName = body.getString(keyForDisplayName);
-        } catch (NullPointerException ex) {
-            return Response.status(BAD_REQUEST).entity(Json.createObjectBuilder().add("message", "Required field missing: " + keyForDisplayName).build()).type(MediaType.APPLICATION_JSON).build();
+            displayName = ApiUtil.getDisplayName(body);
+        } catch (ApiException ex) {
+            return Response.status(BAD_REQUEST).entity(Json.createObjectBuilder().add("message", ex.getLocalizedMessage()).build()).type(MediaType.APPLICATION_JSON).build();
         }
         Person toPersist = new Person();
         toPersist.setDisplayName(displayName);
         Person persistedPerson = addressBookService.add(toPersist);
-        return Response.ok().entity(Json.createObjectBuilder().add("id", persistedPerson.getId()).build()).type(MediaType.APPLICATION_JSON).build();
+//        return Response.ok().entity(Json.createObjectBuilder().add("id", persistedPerson.getId()).add("displayName", persistedPerson.getDisplayName()).build()).type(MediaType.APPLICATION_JSON).build();
+        return Response.ok().entity(ApiUtil.toJson(persistedPerson).build()).type(MediaType.APPLICATION_JSON).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response edit(@PathParam("id") long idToEdit, JsonObject body) {
+        Person personToEdit = addressBookService.find(idToEdit);
+        if (personToEdit == null) {
+            return Response.status(BAD_REQUEST).entity(Json.createObjectBuilder().add("message", "Could not find id " + idToEdit).build()).type(MediaType.APPLICATION_JSON).build();
+        }
+        String displayName;
+        try {
+            displayName = ApiUtil.getDisplayName(body);
+        } catch (ApiException ex) {
+            return Response.status(BAD_REQUEST).entity(Json.createObjectBuilder().add("message", ex.getLocalizedMessage()).build()).type(MediaType.APPLICATION_JSON).build();
+        }
+        personToEdit.setDisplayName(displayName);
+        Person saved = addressBookService.save(personToEdit);
+        return Response.ok().entity(ApiUtil.toJson(saved).build()).type(MediaType.APPLICATION_JSON).build();
     }
 
     @DELETE

@@ -44,6 +44,10 @@ public class AddressBookServiceBean {
         return persisted;
     }
 
+    public Person save(Person personToSave) {
+        return em.merge(personToSave);
+    }
+
     public boolean delete(long id) {
         Person doomed = find(id);
         boolean wasDeleted = false;
