@@ -25,6 +25,11 @@ public class EditPage implements Serializable {
         }
     }
 
+    public void save() {
+        personToEdit.setDisplayName(displayName);
+        addressBookService.save(personToEdit);
+    }
+
     public long getIdToEdit() {
         return idToEdit;
     }

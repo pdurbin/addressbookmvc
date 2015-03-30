@@ -14,6 +14,12 @@
         <h:form>
             <h:outputText value="Editing id #{editPage.idToEdit}: #{editPage.displayName}"/>
             <br/>
+            <h:outputText value="Name"/>
+            <br/>
+            <h:inputText value="#{editPage.displayName}"/>
+            <br/>
+            <h:commandButton value="Save" action="#{editPage.save()}"/>
+            <br/>
             <h:commandButton value="Home" action="index"/>
         </h:form>
     </h:body>
