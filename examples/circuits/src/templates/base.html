@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ appname }} v{{ version }} :: {{ title }}</title>
+
+    {% block styles %}
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+      <link href="/css/main.css" rel="stylesheet">
+    {% endblock %}
+
+  {% endblock %}
+</head>
+
+<body>
+  {% block body %}
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">{{ appname }}</a>
+            </div>
+
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul id="menu" class="nav navbar-nav side-nav">
+                  {% include "includes/menu.html" %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-user">
+                  {% include "includes/navbar/messages.html" %}
+                  {% include "includes/navbar/user.html" %}
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            {% block header %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>{{ appname }} <small>{{ title }}</small></h1>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+    {% block scripts %}
+      <script src="/js/jquery-1.10.2.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/plugins/metisMenu/metisMenu-1.0.3.min.js"></script>
+      <script src="/js/main.js"></script>
+    {% endblock %}
+  {% endblock %}
+</body>
+</html>
