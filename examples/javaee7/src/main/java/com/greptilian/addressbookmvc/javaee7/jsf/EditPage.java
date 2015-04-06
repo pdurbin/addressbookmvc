@@ -17,16 +17,19 @@ public class EditPage implements Serializable {
     long idToEdit;
     Person personToEdit;
     String displayName;
+    String phoneNumber;
 
     public void init() {
         personToEdit = addressBookService.find(idToEdit);
         if (personToEdit != null) {
             displayName = personToEdit.getDisplayName();
+            phoneNumber = personToEdit.getPhoneNumber();
         }
     }
 
     public void save() {
         personToEdit.setDisplayName(displayName);
+        personToEdit.setPhoneNumber(phoneNumber);
         addressBookService.save(personToEdit);
     }
 
@@ -52,6 +55,14 @@ public class EditPage implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 }

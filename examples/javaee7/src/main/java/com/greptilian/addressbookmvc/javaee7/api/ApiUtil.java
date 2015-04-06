@@ -4,6 +4,7 @@ import com.greptilian.addressbookmvc.javaee7.Person;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonString;
 
 public class ApiUtil {
 
@@ -13,6 +14,10 @@ public class ApiUtil {
         String displayName = person.getDisplayName();
         personAsJson.add("id", id);
         personAsJson.add("displayName", displayName);
+        String phoneNumber = person.getPhoneNumber();
+        if (phoneNumber != null) {
+            personAsJson.add("phoneNumber", phoneNumber);
+        }
         return personAsJson;
     }
 
@@ -25,6 +30,16 @@ public class ApiUtil {
             throw new ApiException("Required field missing: " + keyForDisplayName);
         }
         return displayName;
+    }
+
+    public static String getPhoneNumber(JsonObject body) {
+        String keyForPhoneNumber = "phoneNumber";
+        JsonString phoneNumber = body.getJsonString(keyForPhoneNumber);
+        if (phoneNumber != null) {
+            return phoneNumber.getString();
+        } else {
+            return null;
+        }
     }
 
 }

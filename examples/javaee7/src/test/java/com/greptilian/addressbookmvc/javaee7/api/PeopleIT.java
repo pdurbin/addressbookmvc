@@ -66,9 +66,12 @@ public class PeopleIT {
     @Test
     public void addEditAndDelete() {
         String displayNameKey = "displayName";
+        String phoneNumberKey = "phoneNumber";
         String initialDisplayName = "Michael Finnegan";
-        JsonObject personToAdd = Json.createObjectBuilder().
-                add(displayNameKey, initialDisplayName).build();
+        String phoneNumber = "555-5555";
+        JsonObject personToAdd = Json.createObjectBuilder()
+                .add(displayNameKey, initialDisplayName)
+                .add(phoneNumberKey, phoneNumber).build();
         Response addResponse = given()
                 .body(personToAdd.toString()).contentType(ContentType.JSON)
                 .post("/people");
@@ -78,6 +81,8 @@ public class PeopleIT {
         int id = personAdded.get("id");
         String savedInitialDisplayName = personAdded.get(displayNameKey);
         assertEquals(initialDisplayName, savedInitialDisplayName);
+        String savedPhoneNumber = personAdded.get(phoneNumberKey);
+        assertEquals(phoneNumber, savedPhoneNumber);
 
         String updatedDisplayName = "Mike Finnegan";
         JsonObject updatedInfo = Json.createObjectBuilder().
@@ -90,6 +95,8 @@ public class PeopleIT {
         JsonPath personUpdated = JsonPath.from(editResponse.body().asString());
         String savedUpdatedDisplayName = personUpdated.get(displayNameKey);
         assertEquals(updatedDisplayName, savedUpdatedDisplayName);
+        String phoneNumberNowGone = personUpdated.get(phoneNumberKey);
+        assertEquals(null, phoneNumberNowGone);
 
         Response deleteResponse = given().delete("/people/" + id);
         assertEquals(200, deleteResponse.getStatusCode());

@@ -50,6 +50,10 @@ public class People {
         }
         Person toPersist = new Person();
         toPersist.setDisplayName(displayName);
+        String phoneNumber = ApiUtil.getPhoneNumber(body);
+        if (phoneNumber != null) {
+            toPersist.setPhoneNumber(phoneNumber);
+        }
         Person persistedPerson = addressBookService.add(toPersist);
 //        return Response.ok().entity(Json.createObjectBuilder().add("id", persistedPerson.getId()).add("displayName", persistedPerson.getDisplayName()).build()).type(MediaType.APPLICATION_JSON).build();
         return Response.ok().entity(ApiUtil.toJson(persistedPerson).build()).type(MediaType.APPLICATION_JSON).build();
@@ -62,6 +66,7 @@ public class People {
         if (personToEdit == null) {
             return Response.status(BAD_REQUEST).entity(Json.createObjectBuilder().add("message", "Could not find id " + idToEdit).build()).type(MediaType.APPLICATION_JSON).build();
         }
+        blankOutSinceToPutIsToReplace(personToEdit);
         String displayName;
         try {
             displayName = ApiUtil.getDisplayName(body);
@@ -71,6 +76,11 @@ public class People {
         personToEdit.setDisplayName(displayName);
         Person saved = addressBookService.save(personToEdit);
         return Response.ok().entity(ApiUtil.toJson(saved).build()).type(MediaType.APPLICATION_JSON).build();
+    }
+
+    private void blankOutSinceToPutIsToReplace(Person personToEdit) {
+        personToEdit.setDisplayName(null);
+        personToEdit.setPhoneNumber(null);
     }
 
     @DELETE

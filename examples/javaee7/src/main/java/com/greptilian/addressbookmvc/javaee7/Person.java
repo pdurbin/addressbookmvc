@@ -17,6 +17,9 @@ public class Person implements Serializable {
     @Column(nullable = false)
     private String displayName;
 
+    @Column(nullable = true)
+    private String phoneNumber;
+
     public Long getId() {
         return id;
     }
@@ -31,6 +34,14 @@ public class Person implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 }

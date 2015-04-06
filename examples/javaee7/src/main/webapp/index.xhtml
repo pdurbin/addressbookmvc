@@ -15,10 +15,16 @@
         <h:form>
             <h:dataTable value="#{homePage.allPeople}" var="person">
                 <h:column>
+                    <f:facet name="header">ID</f:facet>
                     <h:outputText value="#{person.id}"/>
                 </h:column>
                 <h:column>
+                    <f:facet name="header">Name</f:facet>
                     <h:outputText value="#{person.displayName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Phone</f:facet>
+                    <h:outputText value="#{person.phoneNumber}"/>
                 </h:column>
                 <h:column>
                     <h:link outcome="edit">

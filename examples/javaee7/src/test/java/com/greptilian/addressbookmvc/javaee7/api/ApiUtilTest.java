@@ -29,4 +29,28 @@ public class ApiUtilTest {
             assertEquals(ex.getLocalizedMessage(), "Required field missing: displayName");
         }
     }
+
+    @Test
+    public void testGetPhoneNumberMissing() {
+        JsonObject body = Json.createObjectBuilder().add("id", 1l).build();
+        String phoneNumber = ApiUtil.getPhoneNumber(body);
+        assertEquals(phoneNumber, null);
+    }
+
+    @Test
+    public void testGetPhoneNumberKey() {
+        Person person = new Person();
+        person.setId(1l);
+        String name = "Chatty";
+        person.setDisplayName(name);
+        String phone = "555-5555";
+        person.setPhoneNumber(phone);
+        JsonObjectBuilder expResult = Json.createObjectBuilder()
+                .add("id", 1l)
+                .add("displayName", name)
+                .add("phoneNumber", phone);
+        JsonObjectBuilder result = ApiUtil.toJson(person);
+        assertEquals(expResult.build(), result.build());
+    }
+
 }
