@@ -38,7 +38,16 @@ class AddressAPI(JSONController):
         return {"success": True}
 
     def list(self, *args, **kwargs):
-        return self._load()
+        data = self._load()
+        if not kwargs:
+            return data
+        results = []
+        for i, entry in enumerate(data):
+            if data["full_name"].startswith(kwargs["full_name"]):
+                results.append(entry)
+            elif data["email"].startswith(kwargs["email"]):
+                results.append(entry)
+        return results
 
     def search(self, *args, **kwargs):
         data = self._load()
