@@ -1,14 +1,16 @@
-circuits (Python) AddressBookMVC Example
-========================================
+# An AddressBook MVC Demo using circuits and AngularJS
 
-Technologies used:
+This is a simple AddressBookMVC demo application
+using the [circuits][1] for the backend and
+[AngularJS][2] on the frontend.
 
--   Python
--   circuits
--   yota
--   Docker (*for demo purposes*)
--   Vagrant (*for demo purposes*)
+## Quick start
 
-Run `vagrant up` or `docker-compose up` to deploy the app to: <http://localhost:8000/>
+Either:
+    
+    $ pip install -r requirements.txt
+    $ python server.py
 
-Login with `admin:admin`.
+Or:
+    
+    $ docker run -d -p 3000:3000 prologic/addressbookmvc

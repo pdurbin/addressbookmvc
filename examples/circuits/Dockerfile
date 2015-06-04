@@ -1,6 +1,6 @@
 FROM crux/python:onbuild
 
-EXPOSE 8000
+EXPOSE 3000
 
-ENTRYPOINT ["addressbook"]
+ENTRYPOINT ["./server.py"]
 CMD []

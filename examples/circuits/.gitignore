@@ -1,7 +1,3 @@
 *~
-dist
 *.bak
-build
 *.py[co]
-.vagrant
-*.egg-info

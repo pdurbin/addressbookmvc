@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 
-
-from setuptools import setup, find_packages
-
-
-from addressbook.version import version
+from setuptools import setup
 
 
 def parse_requirements(filename):
@@ -15,24 +11,12 @@ def parse_requirements(filename):
 
 
 setup(
-    name="addressbook",
-    version=version,
-    description="Address Book MVC Example",
-    long_description=open("README.rst", "r").read(),
-    author="James Mills",
-    author_email="James Mills, prologic at shortcircuit dot net dot au",
-    url="https://github.com/prologic/addressbookmvc",
-    download_url="https://github.com/prologic/addressbookmvc/archive/master.zip",
-    classifiers=[],
-    license="MIT",
-    keywords="address book example",
-    platforms="POSIX",
-    packages=find_packages("src"),
+    name="server",
+    version="dev",
+    description="circuits addressbookmvc demo",
+    scripts=(
+        "server.py",
+    ),
     install_requires=list(parse_requirements("requirements.txt")),
-    entry_points={
-        "console_scripts": [
-            "addressbook=addressbook.main:main"
-        ]
-    },
     zip_safe=True
 )
