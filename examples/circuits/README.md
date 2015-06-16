@@ -12,5 +12,5 @@ Either:
     $ python server.py
 
 Or:
-    
-    $ docker run -d -p 3000:3000 prologic/addressbookmvc
+    $ docker build -t prologic/addressbookmvc .
+    $ docker run -i -t -p 3000:3000 --rm prologic/addressbookmvc
