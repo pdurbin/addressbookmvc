@@ -1,0 +1,33 @@
+<project name="phonebook" default="webdir" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="webdir" value="build/webdir"/>
+	<property name="webinf" value="${webdir}/WEB-INF"/>
+	<property name="classes" value="${webinf}/classes"/>
+	<property name="lib" value="${webinf}/lib"/>
+
+	<path id="clpath">
+		<fileset dir="${lib}" includes="*.jar"/>
+	</path>
+	
+	<target name="webdir">
+		<delete dir="${webdir}"/>
+		<ivy:settings file="ivysettings.xml"/>
+		<ivy:retrieve conf="default" type="jar" pattern="${lib}/[artifact]-[revision].[ext]"/>
+		
+		<mkdir dir="${classes}"/>
+		<javac includeAntRuntime="false" srcdir="src" destdir="${classes}" source="1.6" target="1.6"
+			classpathref="clpath" excludes="**/Start*" debug="on"/>
+		<copy todir="${classes}">
+			<fileset dir="src" excludes="**/*.java"/>
+		</copy>
+		
+		<copy todir="${webdir}">
+			<fileset dir="webapp"/>
+		</copy>
+		<move file="${webinf}/web-deploy.xml" tofile="${webinf}/web.xml"/>
+	</target>
+
+	<target name="resolve">
+		<ivy:settings file="ivysettings.xml" />
+		<ivy:resolve/>
+	</target>
+</project>

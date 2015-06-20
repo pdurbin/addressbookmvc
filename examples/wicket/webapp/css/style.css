@@ -1,0 +1,27 @@
+body {
+	font-family: arial,verdana,sans-serif;
+}
+
+table.data {border-collapse: collapse; margin-bottom: 5px}
+table.data tr {background-color: #ffffe8;}
+table.data td, table.data th {vertical-align: top; padding: 3px; border: 1px solid #c0c0c0}
+table.data tr.odd {background-color: #e8ffff;}
+
+table.data tr.headers{background: url(../images/grad.png)}
+table.data tr.headers th{background: none}
+table.data tr.headers th a{text-decoration:none; padding-right: 9px}
+table.data tr.headers th.wicket_orderUp a{background: url(../images/up.png) no-repeat center right}
+table.data tr.headers th.wicket_orderDown a{background: url(../images/down.png) no-repeat center right}
+
+table.t2 th, table.t2 td {
+	padding: 3px;
+	background-color: #eef;
+}
+
+table.t2 th {
+	text-align:right;
+}
+
+li.feedbackPanelERROR {
+	color: red;
+}

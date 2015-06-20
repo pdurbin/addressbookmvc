@@ -1,0 +1,52 @@
+Phonebook demo by aditsu
+
+Web framework: wicket
+Database library: depeche
+Database server: postgresql
+Embedded servlet container (optional): jetty
+Build tool: ant
+Dependency management: ivy
+IDE: eclipse
+
+
+You can build the phonebook as a web directory and run it in a servlet container such as jetty,
+or you can run it as a java application, with jetty embedded.
+
+1. Building a web directory
+
+Running "ant" will automatically build the webdir target. It requires ivy. 
+If you don't have ivy, you will get an error message like:
+
+[...] failed to create task or type antlib:org.apache.ivy.ant:settings
+[...]
+This appears to be an antlib declaration. 
+Action: Check that the implementing library exists in one of:
+	-(suggested directories)
+	-a directory added on the command line with the -lib argument
+
+Download the ivy binary from http://ant.apache.org/ivy/download.cgi , extract it and either:
+- copy ivy-*.jar to one of the suggested directories above and run "ant" again
+or
+- run "ant -lib (directory containing ivy-*.jar)"
+
+ant should now succeed and build a web directory in build/webdir.
+
+Now you can take the web directory, optionally zip it into a war file, and run it in a servlet container.
+
+Instructions for jetty (tested with jetty 8.1):
+- copy/move the webdir folder to webapps/phonebook
+- if running jetty for the first time, clear the contexts folder
+- copy phonebook.xml to contexts
+- start jetty ("bin/jetty.sh start" from jetty's folder)
+- access the application at http://localhost:8080
+
+Of course, you also need to set up the database. Create a postgres database called "phonebook" and run the command from setup.sql
+
+2. Running jetty embedded
+
+Currently I only have instructions for eclipse:
+- install ivy and ivyde - instructions at https://ant.apache.org/ivy/ivyde/download.html
+- configure ivy under preferences -> ivy -> settings; use the provided ivysettings.xml
+- import the phonebook project; eclipse should build it automatically
+- run StartPhonebook
+- access the application at http://localhost:8080
