@@ -1,0 +1,11 @@
+<ivysettings>
+	<settings defaultResolver="myivy" defaultResolveMode="dynamic"/>
+	<property name="myivy" value="http://myivy.aditsu.net"/>
+	<property name="dir" value="${user.home}/.ivy2/aditsu-myivy"/>
+	<resolvers>
+		<packager name="myivy" buildRoot="${dir}/build" resourceCache="${dir}/cache">
+			<ivy pattern="${myivy}/[organisation]/[module]/[revision]/ivy.xml"/>
+			<artifact pattern="${myivy}/[organisation]/[module]/[revision]/packager.xml"/>
+		</packager>
+	</resolvers>
+</ivysettings>

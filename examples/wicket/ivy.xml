@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	
+	<info organisation="net.aditsu" module="phonebook" status="integration"/>
+	
+	<configurations>
+		<conf name="default"/>
+		<conf name="run" extends="default"/>
+	</configurations>
+	
+	<dependencies defaultconf="default">
+		<dependency org="org.eclipse" name="jetty" rev="latest.release" conf="run->webapp"/>
+		<dependency org="org.apache" name="wicket" rev="latest.release" conf="*->extensions"/>
+		<dependency org="org.slf4j" name="slf4j" rev="latest.release" conf="*->log4j"/>
+		<dependency org="net.aditsu" name="depeche" rev="latest.release"/>
+		<dependency org="org.postgresql" name="postgresql-jdbc" rev="latest.release"/>
+	</dependencies>
+</ivy-module>
