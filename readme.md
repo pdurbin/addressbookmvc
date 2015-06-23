@@ -11,7 +11,14 @@
 
 http://todomvc.com but using server-side technologies.
 
-# Spec
+# Implementation Guidelines
+
+## General
+
+* Go for clarity and simplicity which should ease comparison and improve the pedagogical win.
+* Err on the side of excessive commenting.
+* Implementations MUST include persistence.
+* Implementations SHOULD behave as described in the API doc below, whether it provides an actual API service or merely outputs HTML directly.
 
 ## Contacts
 
@@ -27,7 +34,7 @@ A contact is completely described as:
 
 ### SQL
 
-This is SQLite compatible syntax.
+If you choose to use an SQL-based persistence, here is some example [DDL]:
 
 ```sql
 CREATE TABLE contacts (
@@ -36,6 +43,12 @@ name TEXT NOT NULL,
 phone TEXT NOT NULL
 );
 ```
+
+The above is SQLite compatible syntax.
+
+### File
+
+If you choose to use file-based persistence, please use OS-independent path handling/access where possible.
 
 ## API
 
@@ -50,3 +63,4 @@ phone TEXT NOT NULL
 See [RFC7231 Section 6][1] for details on HTTP/1.1 Status Codes
 
 [1]: https://tools.ietf.org/html/rfc7231#section-6
+[DDL]: https://en.wikipedia.org/wiki/Data_definition_language
