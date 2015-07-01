@@ -2,20 +2,22 @@
 	<property name="webdir" value="build/webdir"/>
 	<property name="webinf" value="${webdir}/WEB-INF"/>
 	<property name="classes" value="${webinf}/classes"/>
-	<property name="lib" value="${webinf}/lib"/>
+	<property name="weblib" value="${webinf}/lib"/>
+	<property name="bin" value="build/bin"/>
+	<property name="lib" value="build/lib"/>
 
-	<path id="clpath">
-		<fileset dir="${lib}" includes="*.jar"/>
+	<path id="webclpath">
+		<fileset dir="${weblib}" includes="*.jar"/>
 	</path>
 	
 	<target name="webdir">
 		<delete dir="${webdir}"/>
 		<ivy:settings file="ivysettings.xml"/>
-		<ivy:retrieve conf="default" type="jar" pattern="${lib}/[artifact]-[revision].[ext]"/>
+		<ivy:retrieve conf="default" type="jar" pattern="${weblib}/[artifact]-[revision].[ext]"/>
 		
 		<mkdir dir="${classes}"/>
 		<javac includeAntRuntime="false" srcdir="src" destdir="${classes}" source="1.6" target="1.6"
-			classpathref="clpath" excludes="**/Start*" debug="on"/>
+			classpathref="webclpath" excludes="**/Start*" debug="on"/>
 		<copy todir="${classes}">
 			<fileset dir="src" excludes="**/*.java"/>
 		</copy>
@@ -24,6 +26,29 @@
 			<fileset dir="webapp"/>
 		</copy>
 		<move file="${webinf}/web-deploy.xml" tofile="${webinf}/web.xml"/>
+	</target>
+
+	<path id="clpath">
+		<fileset dir="${lib}" includes="*.jar"/>
+		<pathelement path="${bin}"/>
+	</path>
+	
+	<target name="build">
+		<delete dir="${bin}"/>
+		<delete dir="${lib}"/>
+		<ivy:settings file="ivysettings.xml"/>
+		<ivy:retrieve type="jar" pattern="${lib}/[artifact]-[revision].[ext]"/>
+		
+		<mkdir dir="${bin}"/>
+		<javac includeAntRuntime="false" srcdir="src" destdir="${bin}" source="1.6" target="1.6"
+			classpathref="clpath" debug="on"/>
+		<copy todir="${bin}">
+			<fileset dir="src" excludes="**/*.java"/>
+		</copy>
+	</target>
+	
+	<target name="run">
+		<java fork="true" classname="net.aditsu.phonebook.StartPhonebook" classpathref="clpath"/>
 	</target>
 
 	<target name="resolve">
