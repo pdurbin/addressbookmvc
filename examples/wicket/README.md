@@ -13,12 +13,14 @@
 <tr><th align="left">IDE (optional)</th><td><a href="http://www.eclipse.org/">eclipse</a></td></tr>
 </table>
 
-You can build the phonebook application as a web directory and run it in any servlet container such as jetty,
+You can build the phonebook application as a web directory and run it in any servlet container such as jetty,  
 or you can run it as a java application, with jetty embedded.
+
+**Database setup:** Create a postgres database called "phonebook" and run the command from `setup.sql`
 
 ## 1. Building a web directory
 
-Running `ant` will automatically build the webdir target. It requires ivy.  
+Running `ant` will automatically build the `webdir` target. It requires ivy.  
 If you don't have ivy, you will get an error message like:
 
 ```
@@ -46,11 +48,15 @@ Instructions for jetty standalone (tested with jetty 8.1):
 - start jetty (`bin/jetty.sh start` from jetty's folder)
 - access the application at <http://localhost:8080>
 
-Of course, you also need to set up the database. Create a postgres database called "phonebook" and run the command from `setup.sql`
-
 ## 2. Running jetty embedded
 
-Currently I only have instructions for eclipse:
+### Using ant:
+
+First, build the project: `ant build` (refer to point 1 regarding ivy)  
+Once it is built, execute `ant run` and access the application at <http://localhost:8080>
+
+### Using eclipse:
+
 - install ivy and ivyde - instructions at https://ant.apache.org/ivy/ivyde/download.html
 - configure ivy under `preferences -> ivy -> settings`; use the provided `ivysettings.xml`
 - import the phonebook project; eclipse should build it automatically
