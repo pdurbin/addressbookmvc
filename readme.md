@@ -11,6 +11,13 @@
 
 http://todomvc.com but using server-side technologies.
 
+* have a database with a table with names and phone numbers (and probably a surrogate key)
+* the application should list all the entries (optionally paged)
+* you should be able to add, edit and delete an entry
+* each entry has 2 fields: name and phone number
+* *any* other features are optional
+
+
 # Implementation Guidelines
 
 ## General
@@ -18,7 +25,7 @@ http://todomvc.com but using server-side technologies.
 * Go for clarity and simplicity which should ease comparison and improve the pedagogical win.
 * Err on the side of excessive commenting.
 * Implementations MUST include persistence.
-* Implementations SHOULD behave as described in the API doc below, whether it provides an actual API service or merely outputs HTML directly.
+* Implementations SHOULD behave as described in the API doc below, *whether it provides an actual API service or merely outputs HTML directly*.
 
 ## Contacts
 
