@@ -1,0 +1,13 @@
+<form action="{% url 'contacts:edit' %}" method="post">
+    {% csrf_token %}
+    <label>Name</label>
+    <input type="text" name="display_name" value="{{ person.display_name }}" />
+    <br/>
+    <label>Phone</label>
+    <input type="text" name="phone_number" value="{{ person.phone_number }}" />
+    <input type="hidden" name="id" value="{{ person.id }}" />
+    <br/>
+    <input type="submit" value="Update" />
+</form>
+
+<a href="../">Back</a>
