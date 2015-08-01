@@ -59,15 +59,18 @@ If you choose to use file-based persistence, please use OS-independent path hand
 
 ## API
 
-|        URI        | Responses[1]  |   HTTP Verb/Parameters                        |        Description                  |
+|        URI        | Responses[1]  |   HTTP Method (Verb) and Parameters           |        Description                  |
 |:------------------|---------------|-----------------------------------------------|------------------------------------:|
-| /contacts         | 200, 204      | none                                          | list all contacts                   |
-| /contact          | 201, 400      | PUT with JSON representation of new contact   | create a new contact                |
+| /contacts         | 200, 204      | GET                                           | list all contacts                   |
+| /contact          | 201, 400      | POST with JSON representation of new contact  | create a new contact                |
 | /contact/\<id>    | 200, 404      | GET                                           | display a specific contact          |
-| /contact/\<id>    | 200, 400, 404 | POST with JSON representation of *new* data   | update a specific contact           |
+| /contact/\<id>    | 200, 400, 404 | PUT with JSON representation of *new* data    | update a specific contact           |
 | /contact/\<id>    | 204, 404      | DELETE                                        | delete a specific contact           |
 
-See [RFC7231 Section 6][1] for details on HTTP/1.1 Status Codes
+* See [RFC7231 Section 6][1] for details on HTTP/1.1 Status Codes.
+* See [RFC7231 Section 4.3][2] for details on HTTP/1.1 Method Definitions.
+
 
 [1]: https://tools.ietf.org/html/rfc7231#section-6
+[2]: https://tools.ietf.org/html/rfc7231#section-4.3
 [DDL]: https://en.wikipedia.org/wiki/Data_definition_language
