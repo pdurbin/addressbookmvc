@@ -1,18 +1,24 @@
-Django AddressBookMVC Example
+{%  extends "contacts/base.html" %}
+ {% block main_content %}
 
-<form action="{% url 'contacts:add' %}" method="post">
+<h2>{{ page_title }}</h2>
+
+
+{%  if new_person %}
+<div class="alert alert-success" role="alert">
+   Success! Person <b>{{ new_person.display_name }}</b> added!
+</div>
+{% endif %}
+
+<form action="{% url 'contacts:index' %}" method="post">
     {% csrf_token %}
-    <label>Name</label>
-    <input type="text" name="display_name" />
-    <input type="submit" value="Add" />
+    <ul style="list-style-type:none;">
+        {{ person_form.as_ul }}
+         <li><br /><input type="reset" value="Reset" />
+                &nbsp; <input type="submit" value="Add" />
+       </li>
+    </ul>
 </form>
 
-{% if contacts_list %}
-    <ul>
-    {% for person in contacts_list %}
-    <li><a href="{% url 'contacts:detail' person.id %}">{{ person.display_name }}</a> {{ person.phone_number }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No contacts to list.</p>
-{% endif %}
+    {% include "contacts/contact_list.html" %}
+{% endblock %}

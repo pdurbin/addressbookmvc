@@ -1,4 +1,4 @@
-<form action="{% url 'contacts:edit' %}" method="post">
+<form action="{% url 'contacts:edit_contact' %}" method="post">
     {% csrf_token %}
     <label>Name</label>
     <input type="text" name="display_name" value="{{ person.display_name }}" />
