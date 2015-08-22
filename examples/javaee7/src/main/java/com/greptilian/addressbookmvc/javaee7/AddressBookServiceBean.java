@@ -10,6 +10,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+@SuppressWarnings({"initialization.fields.uninitialized", "argument.type.incompatible"})
 @Stateless
 @Named
 public class AddressBookServiceBean {
@@ -19,6 +20,7 @@ public class AddressBookServiceBean {
     @PersistenceContext
     private EntityManager em;
 
+    @SuppressWarnings("return.type.incompatible")
     public Person find(long id) {
         TypedQuery<Person> typedQuery = em.createQuery("SELECT OBJECT(o) FROM Person AS o WHERE o.id = :id", Person.class);
         typedQuery.setParameter("id", id);
@@ -34,6 +36,7 @@ public class AddressBookServiceBean {
         return typedQuery.getResultList();
     }
 
+    @SuppressWarnings("return.type.incompatible")
     public Person add(Person toPersist) {
         Person persisted = null;
         try {

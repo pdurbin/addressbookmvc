@@ -32,6 +32,7 @@ public class ApiUtil {
         return displayName;
     }
 
+    @SuppressWarnings("return.type.incompatible")
     public static String getPhoneNumber(JsonObject body) {
         String keyForPhoneNumber = "phoneNumber";
         JsonString phoneNumber = body.getJsonString(keyForPhoneNumber);

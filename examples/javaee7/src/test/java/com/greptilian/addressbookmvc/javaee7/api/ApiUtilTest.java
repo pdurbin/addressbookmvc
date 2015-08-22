@@ -20,6 +20,7 @@ public class ApiUtilTest {
         assertEquals(expResult.build(), result.build());
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     @Test
     public void testGetDisplayName() {
         JsonObject body = Json.createObjectBuilder().add("id", 1l).build();
@@ -30,6 +31,7 @@ public class ApiUtilTest {
         }
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     @Test
     public void testGetPhoneNumberMissing() {
         JsonObject body = Json.createObjectBuilder().add("id", 1l).build();

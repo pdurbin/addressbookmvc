@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+@SuppressWarnings("initialization.fields.uninitialized")
 @ViewScoped
 @Named
 public class HomePage implements Serializable {

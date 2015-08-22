@@ -20,6 +20,7 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
+@SuppressWarnings("initialization.fields.uninitialized")
 @Path("v1/people")
 public class People {
 
@@ -40,6 +41,7 @@ public class People {
         return Response.ok().entity(Json.createObjectBuilder().add("message", response).build()).type(MediaType.APPLICATION_JSON).build();
     }
 
+    @SuppressWarnings({"argument.type.incompatible", "return.type.incompatible"})
     @POST
     public Response add(JsonObject body) {
         String displayName;
@@ -59,6 +61,7 @@ public class People {
         return Response.ok().entity(ApiUtil.toJson(persistedPerson).build()).type(MediaType.APPLICATION_JSON).build();
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     @PUT
     @Path("{id}")
     public Response edit(@PathParam("id") long idToEdit, JsonObject body) {
@@ -78,6 +81,7 @@ public class People {
         return Response.ok().entity(ApiUtil.toJson(saved).build()).type(MediaType.APPLICATION_JSON).build();
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     private void blankOutSinceToPutIsToReplace(Person personToEdit) {
         personToEdit.setDisplayName(null);
         personToEdit.setPhoneNumber(null);

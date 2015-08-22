@@ -15,6 +15,7 @@ import org.junit.Test;
 
 public class PeopleIT {
 
+    @SuppressWarnings("argument.type.incompatible")
     private static final Logger logger = Logger.getLogger(PeopleIT.class.getCanonicalName());
 
     public PeopleIT() {
@@ -63,6 +64,7 @@ public class PeopleIT {
         logger.fine("added and deleted id " + id);
     }
 
+    @SuppressWarnings("argument.type.incompatible")
     @Test
     public void addEditAndDelete() {
         String displayNameKey = "displayName";
