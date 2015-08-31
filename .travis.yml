@@ -1,2 +1,3 @@
 language: java
 script: cd examples/javaee7 && mvn test
+after_success: cd examples/javaee7 && mvn jacoco:report coveralls:report
