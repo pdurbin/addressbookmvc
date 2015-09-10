@@ -1,0 +1,24 @@
+{%  extends "contacts/base.html" %}
+ {% block main_content %}
+
+<h2>{{ page_title }}</h2>
+
+{%  if just_edited %}
+    <div class="alert alert-success" role="alert">
+   Success! Person <b>{{ existing_person.display_name }}</b> edited!
+    <p>Return to the <a href="{% url 'contacts:index' %}">home page</a></p>
+</div>
+{% endif %}
+
+
+ <form action="{% url 'contacts:edit_contact' existing_person.id %}" method="post">
+    {% csrf_token %}
+    <ul style="list-style-type:none;">
+        {{ person_form.as_ul }}
+         <li><br /><input type="reset" value="Reset" />
+                &nbsp; <input type="submit" value="Edit" />
+       </li>
+    </ul>
+</form>
+
+{% endblock %}

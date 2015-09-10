@@ -1,0 +1,29 @@
+ {% if contacts_list %}
+ <hr />
+ <h4>Contacts List</h4>
+ <table class="table table-bordered table-condensed">
+    <thead>
+        <th>&nbsp;</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+    </thead>
+
+    {% for person in contacts_list %}
+       {%  if new_person and new_person.id == person.id %}
+            <tr style="background-color:#F5F5DC;">
+       {% else %}
+            <tr>
+       {% endif %}
+            <td>{{  forloop.counter }}</td>
+
+            <td><a href="{% url 'contacts:edit_contact' person.id %}">{{ person.display_name }}</a></td>
+            <td>{{ person.phone_number }}</td>
+
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="3">(Address book is empty)</td>
+        </tr>
+   {% endfor %}
+ </table>
+{% endif %}
